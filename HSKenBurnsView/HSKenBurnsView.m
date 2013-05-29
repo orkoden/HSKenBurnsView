@@ -85,16 +85,13 @@ HSKBVector hsvnormalize(HSKBVector v){
     return u;
 }
 
-#define ARC4RANDOM_MAX      0x100000000
+
 double Random0to1(){
-    return (double)arc4random() / ARC4RANDOM_MAX;  // should be between 0...1
+    return (double)arc4random() / (double)UINT32_MAX;  // should be between 0...1
 }
 
 BOOL RandomBOOL(){
-    double      factor = Random0to1();
-    if(factor >= 0.5)
-        return YES;
-    return NO;
+    return random()&01;     // random() creates a random int. This is checked for being odd or even. &01 does the same as %2 (modulo 2)
 }
 
 NSInteger OneOrMinusOne(){
